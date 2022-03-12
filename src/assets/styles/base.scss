@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'breakpoints';
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: $media-xss-min;
+  background-color: $color_bg-light;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
