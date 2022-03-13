@@ -1,11 +1,28 @@
-import React, {useRef, useState} from 'react';
+import PostList from 'components/PostList';
+import React, {useEffect, useRef, useState} from 'react';
 import {MyInput} from 'UI';
 import debounce from 'utils/debounce';
+import apiService from 'api/ServiceApi';
 import style from './HomePage.module.scss';
+
+interface PostType {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
 
 const HomePage: React.FC = () => {
   const [inputClear, setInputClear] = useState(false);
+  const [postApi, setPostApi] = useState<PostType[]>([]);
   const inputSearch = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  useEffect(() => {
+    (async () => {
+      const posts = await apiService.getPostAll();
+      setPostApi(posts);
+    })();
+  }, []);
 
   const handleSearchClear = () => {
     inputSearch.current.value = '';
@@ -35,6 +52,9 @@ const HomePage: React.FC = () => {
             ></span>
           )}
         </label>
+      </div>
+      <div>
+        <PostList posts={postApi} />
       </div>
     </main>
   );

@@ -10,7 +10,7 @@ class ApiService {
   async getUserById(id: number) {
     const responsive = await fetch(`${API_USERS}/${id}`);
     const user = await responsive.json();
-    return user.name;
+    return user;
   }
 
   async getPostAll() {

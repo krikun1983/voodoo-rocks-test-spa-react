@@ -1,0 +1,31 @@
+@import 'assets/styles/base';
+
+.first__letter::first-letter {
+  text-transform: uppercase;
+}
+
+.post {
+  &__heading {
+    color: $color_accent;
+    font-weight: 900;
+  }
+
+  &__text {
+    padding: 15px 0;
+    font-weight: 400;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__author {
+    color: $color_gray;
+    font-weight: 500;
+    font-style: normal;
+
+    a {
+      color: inherit;
+    }
+  }
+}
