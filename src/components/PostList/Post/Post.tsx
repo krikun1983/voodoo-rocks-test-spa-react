@@ -3,15 +3,9 @@ import apiService from 'api/ServiceApi';
 import cn from 'classnames';
 import style from './Post.module.scss';
 import {Link} from 'react-router-dom';
+import {PostType} from 'api/types';
 
-interface Props {
-  id: number;
-  userId: number;
-  title: string;
-  body: string;
-}
-
-export const Post: React.FC<Props> = ({id, userId, title, body}) => {
+export const Post: React.FC<PostType> = ({id, userId, title, body}) => {
   const [author, setAuthor] = useState('');
 
   useEffect(() => {

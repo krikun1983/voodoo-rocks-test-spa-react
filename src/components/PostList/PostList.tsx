@@ -1,13 +1,7 @@
 import React from 'react';
 import Post from './Post';
+import {PostType} from 'api/types';
 import style from './PostList.module.scss';
-
-interface PostType {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
 
 interface Props {
   posts: PostType[];
@@ -27,4 +21,4 @@ const PostList: React.FC<Props> = ({posts}) => {
   );
 };
 
-export default React.memo(PostList);
+export default PostList;

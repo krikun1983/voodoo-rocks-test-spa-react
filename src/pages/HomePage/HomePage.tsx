@@ -3,36 +3,44 @@ import React, {useEffect, useRef, useState} from 'react';
 import {MyInput} from 'UI';
 import debounce from 'utils/debounce';
 import apiService from 'api/ServiceApi';
+import {PostType, UserType} from 'api/types';
 import style from './HomePage.module.scss';
-
-interface PostType {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
 
 const HomePage: React.FC = () => {
   const [inputClear, setInputClear] = useState(false);
-  const [postApi, setPostApi] = useState<PostType[]>([]);
+  const [inputValue, setInputValue] = useState('');
+  const [postsApi, setPostsApi] = useState<PostType[]>([]);
+  const [usersApi, setUsersApi] = useState<UserType[]>([]);
   const inputSearch = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
     (async () => {
       const posts = await apiService.getPostAll();
-      setPostApi(posts);
+      const users = await apiService.getUsersAll();
+
+      setPostsApi(posts);
+      setUsersApi(users);
     })();
   }, []);
 
   const handleSearchClear = () => {
     inputSearch.current.value = '';
     setInputClear(false);
+    setInputValue('');
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputClear(e.target.value.length !== 0);
-    console.log(e.target.value);
+    setInputValue(e.target.value);
   };
+
+  let postsFilter = [...postsApi];
+  const idsUsersCurrent = usersApi
+    .filter(user =>
+      user.name.toLowerCase().includes(inputValue.trim().toLowerCase()),
+    )
+    .map(user => user.id);
+  postsFilter = postsApi.filter(post => idsUsersCurrent.includes(post.userId));
 
   return (
     <main className={style.main}>
@@ -54,7 +62,7 @@ const HomePage: React.FC = () => {
         </label>
       </div>
       <div>
-        <PostList posts={postApi} />
+        <PostList posts={postsFilter} />
       </div>
     </main>
   );
