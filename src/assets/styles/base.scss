@@ -39,3 +39,10 @@ img {
 a {
   text-decoration: none;
 }
+
+.main {
+  max-width: $media-xll;
+  height: 100%;
+  margin: 0 auto;
+  @include flex-column-top();
+}

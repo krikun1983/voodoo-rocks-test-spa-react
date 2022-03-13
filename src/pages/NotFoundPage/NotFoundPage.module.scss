@@ -1,1 +1,29 @@
 @import 'assets/styles/base';
+
+.wrapper {
+  height: 100%;
+  margin-top: 20px;
+  @include flex-column-center();
+
+  h2 {
+    margin-bottom: 3vw;
+    font-size: 40px;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 35px;
+    line-height: 1.2;
+
+    span {
+      color: $color_accent;
+      font-weight: bold;
+    }
+  }
+
+  img {
+    width: 65%;
+    max-width: 300px;
+    margin: 30px 0;
+  }
+}

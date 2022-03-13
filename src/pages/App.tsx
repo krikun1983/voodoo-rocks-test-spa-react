@@ -5,9 +5,11 @@ import {useRoutes} from 'router/routers';
 const App: React.FC = () => {
   const routes = useRoutes();
   return (
-    <BrowserRouter>
-      <>{routes}</>
-    </BrowserRouter>
+    <main className="main">
+      <BrowserRouter>
+        <>{routes}</>
+      </BrowserRouter>
+    </main>
   );
 };
 

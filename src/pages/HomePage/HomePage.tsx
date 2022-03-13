@@ -43,7 +43,7 @@ const HomePage: React.FC = () => {
   postsFilter = postsApi.filter(post => idsUsersCurrent.includes(post.userId));
 
   return (
-    <main className={style.main}>
+    <>
       <div className={style.search}>
         <label className={style.search__icon} htmlFor="search">
           <MyInput
@@ -62,9 +62,9 @@ const HomePage: React.FC = () => {
         </label>
       </div>
       <div>
-        <PostList posts={postsFilter} />
+        <PostList posts={postsFilter} linkAuthor={true} />
       </div>
-    </main>
+    </>
   );
 };
 

@@ -1,11 +1,5 @@
 @import 'assets/styles/base';
 
-.main {
-  max-width: $media-xll;
-  margin: 0 auto;
-  @include flex-column-center();
-}
-
 .search {
   position: relative;
   left: 13px;
