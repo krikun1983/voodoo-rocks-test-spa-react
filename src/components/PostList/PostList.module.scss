@@ -7,6 +7,13 @@
   column-count: 3;
   column-gap: 20px;
 
+  @include media-md {
+    column-count: 2;
+  }
+  @include media-m {
+    column-count: 1;
+  }
+
   &__item {
     width: 100%;
     min-width: 260px;
