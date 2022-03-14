@@ -44,5 +44,6 @@ a {
   max-width: $media-xll;
   height: 100%;
   margin: 0 auto;
+  overflow-y: scroll;
   @include flex-column-top();
 }

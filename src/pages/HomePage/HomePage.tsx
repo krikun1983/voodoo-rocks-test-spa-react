@@ -1,6 +1,6 @@
 import PostList from 'components/PostList';
 import React, {useEffect, useRef, useState} from 'react';
-import {MyInput} from 'UI';
+import {MyInput, MyLoader} from 'UI';
 import debounce from 'utils/debounce';
 import apiService from 'api/ServiceApi';
 import {PostType, UserType} from 'api/types';
@@ -11,16 +11,32 @@ const HomePage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [postsApi, setPostsApi] = useState<PostType[]>([]);
   const [usersApi, setUsersApi] = useState<UserType[]>([]);
+  const [isPostLoading, setIsPostLoading] = useState(false);
   const inputSearch = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  useEffect(() => {
-    (async () => {
+  const fetchPosts = async () => {
+    try {
+      setIsPostLoading(true);
       const posts = await apiService.getPostAll();
-      const users = await apiService.getUsersAll();
-
       setPostsApi(posts);
+    } catch (err) {
+      console.error((err as Error).message);
+    } finally {
+      setIsPostLoading(false);
+    }
+  };
+  const fetchUsers = async () => {
+    try {
+      setIsPostLoading(true);
+      const users = await apiService.getUsersAll();
       setUsersApi(users);
-    })();
+    } catch (err) {
+      console.error((err as Error).message);
+    }
+  };
+  useEffect(() => {
+    fetchPosts();
+    fetchUsers();
   }, []);
 
   const handleSearchClear = () => {
@@ -62,7 +78,11 @@ const HomePage: React.FC = () => {
         </label>
       </div>
       <div>
-        <PostList posts={postsFilter} linkAuthor={true} />
+        {isPostLoading ? (
+          <MyLoader />
+        ) : (
+          <PostList posts={postsFilter} linkAuthor={true} />
+        )}
       </div>
     </>
   );
