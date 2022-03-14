@@ -2,6 +2,7 @@
 @import 'breakpoints';
 @import 'mixins';
 @import 'fonts';
+@import 'scroll';
 
 html {
   box-sizing: border-box;
@@ -44,6 +45,6 @@ a {
   max-width: $media-xll;
   height: 100%;
   margin: 0 auto;
-  overflow-y: scroll;
+
   @include flex-column-top();
 }
