@@ -18,15 +18,27 @@
 
   &__name {
     color: $color_accent;
+
+    @include media-sm {
+      font-size: 26px;
+    }
   }
 
   &__card {
     h3 {
       color: $color_gray;
+
+      @include media-sm {
+        font-size: 18px;
+      }
     }
 
     span {
       font-weight: 500;
+    }
+
+    @include media-sm {
+      font-size: 14px;
     }
   }
 
@@ -35,5 +47,9 @@
     right: -8px;
     bottom: -8px;
     background-color: $color_bg-light;
+
+    @include media-sm {
+      right: 10px;
+    }
   }
 }
