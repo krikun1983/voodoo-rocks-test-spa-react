@@ -1,10 +1,9 @@
 import React, {useContext} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {UserType} from 'api/types';
-import {MyButton} from 'UI';
-import style from './UserPage.module.scss';
 import {ContextAPI} from 'context/contextAPI';
 import PostList from 'components/PostList';
+import './UserPage.scss';
 
 const UserPage: React.FC = () => {
   const {id} = useParams();
@@ -16,36 +15,44 @@ const UserPage: React.FC = () => {
 
   return (
     <>
-      <div className={style.author}>
-        <div className={style.author__info}>Author info:</div>
-        <h1 className={style.author__name}>{userInfo?.name}</h1>
-        <div className={style.author__card}>
-          <h3>
-            <span>Nickname: </span>
-            {userInfo?.username}
-          </h3>
-          <p>
-            <span>Email: </span>
-            {userInfo?.email}
-          </p>
-          <p>
-            <span>Website: </span>
-            {userInfo?.website}
-          </p>
-          <p>
-            <span>Company: </span>
-            {userInfo?.company?.name}
-          </p>
-          <p>
-            <span>City: </span>
-            {userInfo?.address?.city}
-          </p>
-        </div>
-        <div className={style.author__link}>
-          <MyButton onClick={() => navigation(-1)}>Go Back</MyButton>
+      <div className="row d-flex justify-content-center">
+        <div className="author">
+          <div className="author__info">Author info:</div>
+          <h1 className="author__name">{userInfo?.name}</h1>
+          <div className="author__card">
+            <h3>
+              <span>Nickname: </span>
+              {userInfo?.username}
+            </h3>
+            <p>
+              <span>Email: </span>
+              {userInfo?.email}
+            </p>
+            <p>
+              <span>Website: </span>
+              {userInfo?.website}
+            </p>
+            <p>
+              <span>Company: </span>
+              {userInfo?.company?.name}
+            </p>
+            <p>
+              <span>City: </span>
+              {userInfo?.address?.city}
+            </p>
+          </div>
+          <div className="author__link">
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => navigation(-1)}
+            >
+              Go Back
+            </button>
+          </div>
         </div>
       </div>
-      <div>
+      <div className="row">
         {
           <PostList
             posts={posts}

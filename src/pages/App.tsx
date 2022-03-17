@@ -31,11 +31,11 @@ const App: React.FC = () => {
 
   return (
     <ContextAPI.Provider value={{postsApi, usersApi, isLoading}}>
-      <main className="main">
+      <div className="container">
         <BrowserRouter>
           <>{routes}</>
         </BrowserRouter>
-      </main>
+      </div>
     </ContextAPI.Provider>
   );
 };

@@ -1,0 +1,14 @@
+@import 'assets/styles/base';
+
+/* stylelint-disable-next-line selector-class-pattern */
+.card-columns {
+  margin: 0 15px;
+  column-count: 3;
+
+  @media (max-width: 991.98px) {
+    column-count: 2;
+  }
+  @media (max-width: 575.98px) {
+    column-count: 1;
+  }
+}

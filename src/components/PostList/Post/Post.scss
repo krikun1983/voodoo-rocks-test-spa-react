@@ -1,22 +1,23 @@
 @import 'assets/styles/base';
 
-.first__letter::first-letter {
-  text-transform: uppercase;
-}
+.card {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px 20px;
 
-.post {
+  & > *:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
   &__heading {
     color: $color_accent;
     font-weight: 900;
+    font-size: 19px;
   }
 
   &__text {
-    padding: 15px 0;
     font-weight: 400;
-
-    &::first-letter {
-      text-transform: uppercase;
-    }
   }
 
   &__author {
@@ -27,5 +28,9 @@
     a {
       color: inherit;
     }
+  }
+
+  &_letter::first-letter {
+    text-transform: uppercase;
   }
 }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Post from './Post';
 import {PostType, UserType} from 'api/types';
-import style from './PostList.module.scss';
+import './PostList.scss';
 
 interface Props {
   posts: PostType[];
@@ -11,12 +11,11 @@ interface Props {
 
 const PostList: React.FC<Props> = ({posts, users, linkAuthor}) => {
   return (
-    <ul className={style.list}>
+    <div className="card-columns">
       {posts.map(post => {
         const userOfPost = users.find(user => user.id === post.userId);
-
         return (
-          <li key={post.id} className={style.list__item}>
+          <Fragment key={post.id}>
             {
               <Post
                 post={post}
@@ -24,10 +23,10 @@ const PostList: React.FC<Props> = ({posts, users, linkAuthor}) => {
                 author={userOfPost as UserType}
               />
             }
-          </li>
+          </Fragment>
         );
       })}
-    </ul>
+    </div>
   );
 };
 

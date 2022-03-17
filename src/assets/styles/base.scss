@@ -1,15 +1,14 @@
 @import 'variables';
-@import 'breakpoints';
-@import 'mixins';
-@import 'fonts';
 @import 'scroll';
 
 html {
   box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 body {
-  min-width: $media-xss-min;
+  min-width: 320px;
+  font-family: $font-family-sans-serif;
   background-color: $color_bg-light;
 }
 
@@ -32,19 +31,6 @@ li {
   list-style: none;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-}
-
 a {
   text-decoration: none;
-}
-
-.main {
-  max-width: $media-xll;
-  height: 100%;
-  margin: 0 auto;
-
-  @include flex-column-top();
 }
