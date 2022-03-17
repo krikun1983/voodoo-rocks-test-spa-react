@@ -1,43 +1,16 @@
+import React, {useContext, useRef, useState} from 'react';
 import PostList from 'components/PostList';
-import React, {useEffect, useRef, useState} from 'react';
+import {ContextAPI} from 'context/contextAPI';
 import {MyInput, MyLoader} from 'UI';
 import debounce from 'utils/debounce';
-import apiService from 'api/ServiceApi';
-import {PostType, UserType} from 'api/types';
 import style from './HomePage.module.scss';
 
 const HomePage: React.FC = () => {
+  const context = useContext(ContextAPI);
   const [inputClear, setInputClear] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [postsApi, setPostsApi] = useState<PostType[]>([]);
-  const [usersApi, setUsersApi] = useState<UserType[]>([]);
-  const [isPostLoading, setIsPostLoading] = useState(false);
-  const inputSearch = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  const fetchPosts = async () => {
-    try {
-      setIsPostLoading(true);
-      const posts = await apiService.getPostAll();
-      setPostsApi(posts);
-    } catch (err) {
-      console.error((err as Error).message);
-    } finally {
-      setIsPostLoading(false);
-    }
-  };
-  const fetchUsers = async () => {
-    try {
-      setIsPostLoading(true);
-      const users = await apiService.getUsersAll();
-      setUsersApi(users);
-    } catch (err) {
-      console.error((err as Error).message);
-    }
-  };
-  useEffect(() => {
-    fetchPosts();
-    fetchUsers();
-  }, []);
+  const inputSearch = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const handleSearchClear = () => {
     inputSearch.current.value = '';
@@ -50,13 +23,15 @@ const HomePage: React.FC = () => {
     setInputValue(e.target.value);
   };
 
-  let postsFilter = [...postsApi];
-  const idsUsersCurrent = usersApi
+  let postsFilter = [...context.postsApi];
+  const idsUsersCurrent = context.usersApi
     .filter(user =>
       user.name.toLowerCase().includes(inputValue.trim().toLowerCase()),
     )
     .map(user => user.id);
-  postsFilter = postsApi.filter(post => idsUsersCurrent.includes(post.userId));
+  postsFilter = context.postsApi.filter(post =>
+    idsUsersCurrent.includes(post.userId),
+  );
 
   return (
     <>
@@ -78,10 +53,14 @@ const HomePage: React.FC = () => {
         </label>
       </div>
       <div>
-        {isPostLoading ? (
+        {context.isLoading ? (
           <MyLoader />
         ) : (
-          <PostList posts={postsFilter} linkAuthor={true} />
+          <PostList
+            posts={postsFilter}
+            users={context.usersApi}
+            linkAuthor={true}
+          />
         )}
       </div>
     </>

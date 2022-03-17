@@ -1,25 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import apiService from 'api/ServiceApi';
+import React from 'react';
 import cn from 'classnames';
 import style from './Post.module.scss';
 import {Link} from 'react-router-dom';
-import {PostType} from 'api/types';
+import {PostType, UserType} from 'api/types';
 
 interface Props {
   post: PostType;
   linkAuthor: boolean;
+  author: UserType;
 }
 
-export const Post: React.FC<Props> = ({post, linkAuthor}) => {
-  const [author, setAuthor] = useState('');
-  const {userId, title, body} = post;
-
-  useEffect(() => {
-    (async () => {
-      const user = await apiService.getUserById(userId);
-      setAuthor(user.name);
-    })();
-  }, []);
+export const Post: React.FC<Props> = ({post, author, linkAuthor}) => {
+  const {title, body} = post;
+  const {id, name} = author;
 
   return (
     <>
@@ -27,9 +20,9 @@ export const Post: React.FC<Props> = ({post, linkAuthor}) => {
       <p className={cn(style.post__text, style.first__letter)}>{body}</p>
       <address className={style.post__author}>
         {linkAuthor ? (
-          <Link to={`user/${userId}`}>{author}</Link>
+          <Link to={`user/${id}`}>{name}</Link>
         ) : (
-          <span>{author}</span>
+          <span>{name}</span>
         )}
       </address>
     </>
